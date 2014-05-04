@@ -38,16 +38,8 @@ class Taobao::Promotion
     fields = (BASIC_PROPERTIES + OTHER_PROPERTIES).join ','
     params = {method: 'taobao.ump.promotion.get', fields: fields, item_id: id}
     result = Taobao.api_request(params)
-    to_object result[:item_get_response][:item]
+    to_object result[:ump_promotion_get_response][:promotions][:promotion_in_item][:promotion_in_item].first
     @all_properties_fetched = true
-    convert_types
   end
 
-  def convert_types
-    @price = @price.to_f
-    @cid = @cid.to_i
-    @num_iid = @num_iid.to_i
-    @auction_point = @auction_point.to_i
-    @delist_time = DateTime.parse @delist_time
-  end
 end
