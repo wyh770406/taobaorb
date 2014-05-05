@@ -11,6 +11,7 @@ require 'taobao/product'
 require 'taobao/property'
 require 'taobao/search'
 require 'taobao/user'
+require 'taobao/promotion'
 
 require 'taobao/abstract_list'
 require 'taobao/product_list'
