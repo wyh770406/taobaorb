@@ -38,8 +38,10 @@ class Taobao::Promotion
     fields = (BASIC_PROPERTIES + OTHER_PROPERTIES).join ','
     params = {method: 'taobao.ump.promotion.get', fields: fields, item_id: id}
     result = Taobao.api_request(params)
-    puts result
-    #to_object result[:ump_promotion_get_response][:promotions][:promotion_in_item][:promotion_in_item].first
+    unless result[:ump_promotion_get_response][:promotions].empty?
+      promotion_in_item = result[:ump_promotion_get_response][:promotions][:promotion_in_item] 
+      to_object promotion_in_item[:promotion_in_item].first if promotion_in_item && !promotion_in_item.empty?
+    end
     @all_properties_fetched = true
   end
 
