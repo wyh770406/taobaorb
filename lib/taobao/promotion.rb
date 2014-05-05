@@ -15,6 +15,7 @@ class Taobao::Promotion
       convert_types
     else
       @item_id = product_properties.to_s
+      @processed_promotion_in_item = nil 
       fetch_full_data
     end
   end
