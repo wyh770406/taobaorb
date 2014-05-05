@@ -40,7 +40,11 @@ class Taobao::Promotion
     result = Taobao.api_request(params)
     unless result[:ump_promotion_get_response][:promotions].empty?
       promotion_in_item = result[:ump_promotion_get_response][:promotions][:promotion_in_item] 
-      to_object promotion_in_item[:promotion_in_item].first if promotion_in_item && !promotion_in_item.empty?
+      unless promotion_in_item.nil? || promotion_in_item.empty?
+        processed_promotion_in_item = promotion_in_item[:promotion_in_item].map{|promotion| promotion.except(:sku_id_list, :sku_price_list, :other_need, :other_send, :desc).merge(:sku_id=>id)}
+      end
+      processed_promotion_in_item rescue nil
+      #to_object promotion_in_item[:promotion_in_item].first if promotion_in_item && !promotion_in_item.empty?
     end
     @all_properties_fetched = true
   end
